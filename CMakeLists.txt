@@ -24,7 +24,7 @@ add_subdirectory("lib/sfml" EXCLUDE_FROM_ALL)
 set(SFML_INCS "lib/sfml/include")
 link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
 
-# B2D - Box2D phyics library
+# B2D - Box2D physics library
 add_subdirectory("lib/b2d/Box2D" EXCLUDE_FROM_ALL)
 #include_directories("lib/b2d/Box2D/")
 set(B2D_INCS "lib/b2d/Box2D/")
@@ -34,69 +34,67 @@ link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
 
 file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
 ####
-file(GLOB_RECURSE SOURCE_FILES engine/*.cpp engine/*.h)
+file(GLOB_RECURSE SOURCE_FILES engine/src/*.cpp engine/src/*.h)
 add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
-target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/" PUBLIC SYSTEM ${B2D_INCS} )
+target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/engine/src/" PUBLIC SYSTEM ${B2D_INCS} )
 target_link_libraries(lib_engine lib_tile_level_loader lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
 
 ## Maths lib
 add_library(lib_maths INTERFACE)
-target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths/maths.h")
-target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" INTERFACE ${SFML_INCS})
+target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/engine/lib_maths/maths.h")
+target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/engine/lib_maths" INTERFACE ${SFML_INCS})
 
 ## Tile loader lib
-file(GLOB_RECURSE SOURCE_FILES lib_tile_level_loader/*.cpp lib_tile_level_loader/*.h)
+file(GLOB_RECURSE SOURCE_FILES engine/lib_tile_level_loader/*.cpp engine/lib_tile_level_loader/*.h)
 add_library(lib_tile_level_loader STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
-target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
+target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/engine/lib_tile_level_loader/" )
 target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
 
 ## ECM lib
-file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
+file(GLOB_RECURSE SOURCE_FILES engine/lib_ecm/*.cpp engine/lib_ecm/*.h)
 add_library(lib_ecm STATIC ${SOURCE_FILES})
-target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm" )
+target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/engine/lib_ecm" )
 target_link_libraries(lib_ecm PRIVATE lib_maths)
 
 #### Add Practical Projects####
-# #@@@-
-# ## 1 -Pong
-# file(GLOB_RECURSE SOURCES practical_1_pong/stage_1.cpp)
-# add_executable(PRACTICAL_1_PONG ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_1_PONG SYSTEM PRIVATE ${SFML_INCS})
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_1_PONG)
+## 1 -Pong
 
-# file(GLOB_RECURSE SOURCES practical_1_pong/finished.cpp)
-# add_executable(PRACTICAL_1_PONG_F ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_1_PONG_F SYSTEM PRIVATE ${SFML_INCS})
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_1_PONG_F)
 
-# ## 2 - Space invaders
-# file(GLOB_RECURSE SOURCES practical_2_space_invaders/*.cpp practical_2_space_invaders/*.h)
-# add_executable(PRACTICAL_2_INVADERS ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_2_INVADERS SYSTEM PRIVATE ${SFML_INCS})
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_2_INVADERS)
 
-# ## 3 - Tiled level maze
-# file(GLOB_RECURSE SOURCES practical_3_tiled_levels/*.cpp practical_3_tiled_levels/*.h)
-# add_executable(PRACTICAL_3_TILED_LEVELS ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_3_TILED_LEVELS SYSTEM PRIVATE ${SFML_INCS})
-# target_link_libraries(PRACTICAL_3_TILED_LEVELS lib_tile_level_loader)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_3_TILED_LEVELS)
 
-# ## 4 - ECM / pacman
-# file(GLOB_RECURSE SOURCES practical_4_ecm/*.cpp practical_4_ecm/*.h)
-# add_executable(PRACTICAL_4_ECM ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_4_ECM SYSTEM PRIVATE ${SFML_INCS})
-# target_link_libraries(PRACTICAL_4_ECM lib_tile_level_loader lib_ecm)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_4_ECM)
 
-# ## 5 - Physics
-# file(GLOB_RECURSE SOURCES practical_5_physics/*.cpp practical_5_physics/*.h)
-# add_executable(PRACTICAL_5_PHYSICS ${SOURCES} ${RESOURCE_FILES})
-# target_include_directories(PRACTICAL_5_PHYSICS SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
-# target_link_libraries(PRACTICAL_5_PHYSICS Box2D)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_5_PHYSICS)
 
-#@@@-
+
+
+
+
+## 2 - Space invaders
+
+
+
+
+
+## 3 - Tiled level maze
+
+
+
+
+
+
+## 4 - ECM / pacman
+
+
+
+
+
+
+## 5 - Physics
+
+
+
+
+
+
 
 ## 7 - Platformer
 file(GLOB_RECURSE SOURCES practical_7_platformer/*.cpp practical_7_platformer/*.h)
@@ -109,15 +107,19 @@ source_group("resources" FILES ${RESOURCE_FILES})
 target_link_libraries(PRACTICAL_7_PLATFORMER lib_engine)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 
-#@@@-
 
 # ## 7 - AI Movement
 # file(GLOB_RECURSE SOURCES practical_7_steering/*.cpp practical_7_steering/*.h)
-# file(GLOB_RECURSE CMPNTS practical_7_steering/components/*.cpp practical_7_steering/components/*.h)
+# file(GLOB_RECURSE CMPNTS practical_7_steering/components/*.cpp practical_7_steering/components.h)
 # file(GLOB_RECURSE SCENES practical_7_steering/scenes/*.cpp practical_7_steering/scenes/*.h)
-# add_executable(PRACTICAL_7_STEERING ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES})
+# add_executable(PRACTICAL_7_STEERING ${SOURCES} ${SCENES})
+# source_group("components" FILES ${CMPNTS})
+# source_group("resources" FILES ${RESOURCE_FILES})
 # target_link_libraries(PRACTICAL_7_STEERING lib_engine)
 # set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_STEERING)
+
+
+
 
 # ## 8 - Decisions
 # file(GLOB_RECURSE SOURCES practical_8_decisions/*.cpp practical_8_decisions/*.h)
@@ -127,22 +129,12 @@ set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 # target_link_libraries(PRACTICAL_8_DECISIONS lib_engine)
 # set(EXECUTABLES ${EXECUTABLES} PRACTICAL_8_DECISIONS)
 
-#@@@-
 
-# ## 9 - Deployment
-# file(GLOB_RECURSE SOURCES practical_9_deployment/*.cpp practical_9_deployment/*.h)
-# add_executable(PRACTICAL_9_DEPLOY ${SOURCES} ${RESOURCE_FILES})
-# target_link_libraries(PRACTICAL_9_DEPLOY lib_engine)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_9_DEPLOY)
-
-# ## 11 - Networking
-# add_executable(PRACTICAL_11_NETWORKING_SERVER practical_11_networking/server.cpp)
-# target_link_libraries(PRACTICAL_11_NETWORKING_SERVER sfml-network)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_11_NETWORKING_SERVER)
-# add_executable(PRACTICAL_11_NETWORKING_CLIENT practical_11_networking/client.cpp)
-# target_link_libraries(PRACTICAL_11_NETWORKING_CLIENT sfml-network)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_11_NETWORKING_CLIENT)
-
+## 9 - Deployment
+#file(GLOB_RECURSE SOURCES practical_9_deployment/*.cpp practical_9_deployment/*.h)
+#add_executable(PRACTICAL_9_DEPLOY ${SOURCES} ${RESOURCE_FILES})
+#target_link_libraries(PRACTICAL_9_DEPLOY lib_engine)
+#set(EXECUTABLES ${EXECUTABLES} PRACTICAL_9_DEPLOY)
 
 #### Target for copying resources to build dir####
 if(APPLE)
@@ -183,7 +175,7 @@ endforeach ()
 #Install directory within build folder, so it doesn't go into /lib or program-files
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install/")
 #Installer.exe/zip built into /installer
-SET(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/installer/")
+set(CPACK_PACKAGE_DIRECTORY "${CMAKE_BINARY_DIR}/installer/")
 
 #Install component for runtime dlls and stuff
 set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE) #stop this happening on non-release buildss
