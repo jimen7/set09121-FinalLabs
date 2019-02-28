@@ -6,7 +6,7 @@ using namespace std;
 
 MenuScene menu;
 SteeringScene steeringScene;
-//Level2Scene level2;
+PathfindingScene pathfindingScene;
 
 int main() {
   Engine::Start(1280, 720, "Platformer",&menu);
