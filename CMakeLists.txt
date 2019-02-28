@@ -57,42 +57,6 @@ target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/engine/lib_ecm
 target_link_libraries(lib_ecm PRIVATE lib_maths)
 
 #### Add Practical Projects####
-## 1 -Pong
-
-
-
-
-
-
-
-
-
-
-## 2 - Space invaders
-
-
-
-
-
-## 3 - Tiled level maze
-
-
-
-
-
-
-## 4 - ECM / pacman
-
-
-
-
-
-
-## 5 - Physics
-
-
-
-
 
 
 
@@ -108,7 +72,7 @@ target_link_libraries(PRACTICAL_7_PLATFORMER lib_engine)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_7_PLATFORMER)
 
 
-# ## 7 - AI Movement
+# ## 8 - AI Movement
 file(GLOB_RECURSE SOURCES practical_8_steering/*.cpp practical_8_steering/*.h)
 file(GLOB_RECURSE CMPNTS practical_8_steering/components/*.cpp practical_8_steering/components.h)
 file(GLOB_RECURSE SCENES practical_8_steering/scenes/*.cpp practical_8_steering/scenes/*.h)
@@ -121,14 +85,13 @@ set(EXECUTABLES ${EXECUTABLES} PRACTICAL_8_STEERING)
 
 
 
-# ## 8 - Decisions
-# file(GLOB_RECURSE SOURCES practical_8_decisions/*.cpp practical_8_decisions/*.h)
-# file(GLOB_RECURSE CMPNTS practical_8_decisions/components/*.cpp practical_8_decisions/components/*.h)
-# file(GLOB_RECURSE SCENES practical_8_decisions/scenes/*.cpp practical_8_decisions/scenes/*.h)
-# add_executable(PRACTICAL_8_DECISIONS ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES})
-# target_link_libraries(PRACTICAL_8_DECISIONS lib_engine)
-# set(EXECUTABLES ${EXECUTABLES} PRACTICAL_8_DECISIONS)
-
+# ## 9 - Decisions
+file(GLOB_RECURSE SOURCES practical_9_decisions/*.cpp practical_9_decisions/*.h)
+file(GLOB_RECURSE CMPNTS practical_9_decisions/components/*.cpp practical_9_decisions/components/*.h)
+file(GLOB_RECURSE SCENES practical_9_decisions/scenes/*.cpp practical_9_decisions/scenes/*.h)
+add_executable(PRACTICAL_9_DECISIONS ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES})
+target_link_libraries(PRACTICAL_9_DECISIONS lib_engine)
+set(EXECUTABLES ${EXECUTABLES} PRACTICAL_9_DECISIONS)
 
 ## 9 - Deployment
 #file(GLOB_RECURSE SOURCES practical_9_deployment/*.cpp practical_9_deployment/*.h)
