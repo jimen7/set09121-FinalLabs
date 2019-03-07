@@ -90,6 +90,8 @@ file(GLOB_RECURSE SOURCES practical_9_decisions/*.cpp practical_9_decisions/*.h)
 file(GLOB_RECURSE CMPNTS practical_9_decisions/components/*.cpp practical_9_decisions/components/*.h)
 file(GLOB_RECURSE SCENES practical_9_decisions/scenes/*.cpp practical_9_decisions/scenes/*.h)
 add_executable(PRACTICAL_9_DECISIONS ${SOURCES} ${CMPNTS} ${SCENES} ${RESOURCE_FILES})
+source_group("components" FILES ${CMPNTS})
+source_group("resources" FILES ${RESOURCE_FILES})
 target_link_libraries(PRACTICAL_9_DECISIONS lib_engine)
 set(EXECUTABLES ${EXECUTABLES} PRACTICAL_9_DECISIONS)
 

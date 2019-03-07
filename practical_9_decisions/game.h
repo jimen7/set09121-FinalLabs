@@ -1,9 +1,10 @@
+//"game.h"
 #pragma once
 
 #include "scenes/scene_menu.h"
-#include "scenes/scene_steering.h"
-#include "scenes/scene_pathfinding.h"
+#include "scenes/scene_state.h"
+#include "scenes/scene_decision.h"
 
 extern MenuScene menu;
-extern SteeringScene steeringScene;
-extern PathfindingScene pathfindingScene;
+extern StateScene stateScene;
+extern DecisionScene decisionScene;
