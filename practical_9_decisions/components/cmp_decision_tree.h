@@ -45,3 +45,22 @@ protected:
 public:
 	RandomDecision(std::shared_ptr<DecisionTreeNode> trueNode, std::shared_ptr<DecisionTreeNode> falseNode) : Decision(trueNode, falseNode) { }
 };
+
+class RandomMultiDecision : public MultiDecision
+{
+protected:
+	std::shared_ptr<DecisionTreeNode> getBranch(Entity *owner) override final;
+public:
+	RandomMultiDecision(const std::vector<std::shared_ptr<DecisionTreeNode>> &childNodes) : MultiDecision(childNodes) { }
+};
+
+class DecisionTreeComponent : public Component
+{
+private:
+	std::shared_ptr<DecisionTreeNode> _decisionTree;
+public:
+	void update(double) override;
+	void render() override { }
+	explicit DecisionTreeComponent(Entity *p, std::shared_ptr<DecisionTreeNode> decisionTree);
+	DecisionTreeComponent() = delete;
+};
